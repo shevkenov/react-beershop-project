@@ -1,8 +1,8 @@
-const express = require('express')
-const Book = require('../models/Beer')
-const User = require('../models/User')
+const express = require('express');
+const Book = require('../models/Beer');
+const User = require('../models/User');
 
-const router = new express.Router()
+const router = new express.Router();
 
 router.get('/', (req, res) => {
   User
@@ -14,9 +14,9 @@ router.get('/', (req, res) => {
           res.status(200).json({
             products,
             users
-          })
-        })
-    })
-})
+          });
+        });
+    });
+});
 
-module.exports = router
+module.exports = router;

@@ -9,7 +9,7 @@ class Navbar extends Component {
     super(props);
 
     this.state = {
-      loginButton: false
+      loginButton: true
     };
 
   }

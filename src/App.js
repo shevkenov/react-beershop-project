@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 
 import { UserProvider } from './components/context/UserContext.js';
+import Details from './components/Details';
 
 toast.configure({
   autoClose: 2000,
@@ -27,23 +28,46 @@ class App extends Component {
     this.defaultUserState = {
         isLoggedIn: false,
         isAdmin: false,
-        username: ''
+        username: '',
     };
     const localUserState = window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : this.defaultUserState;
 
     this.state = {
       userState: {
-        ...localUserState
+        ...localUserState,
       },
-      updateUserState: this.updateUserState,
+      products: [],
+      cart: [],
+      details: {}
     };
+    
+  }
+
+  setProducts = (products) => {
+    this.setState({
+      products
+    });
+  }
+
+  getProductDetails = (id) => {
+    const idx = this.state.products.findIndex(item => {
+      return item._id === id;
+    });
+
+    this.setState({
+      details: this.state.products[idx]
+    });
+  }
+
+  addItemToCart = (itme) => {
+
   }
 
   updateUserState = (userState) => {
     this.setState({
-      userState
+      userState: {...userState}
     });
-    console.log(this.state);
+    
   }
 
   logout = (event) => {
@@ -61,14 +85,24 @@ class App extends Component {
 
   render() {
     return (
-      <UserProvider value = {{...this.state}}>
+      <UserProvider value = 
+        {
+          {
+            ...this.state,
+            updateUserState: this.updateUserState,
+            setProducts: this.setProducts,
+            getProductDetails: this.getProductDetails,
+            addItemToCart: this.addItemToCart
+          }
+        }>
         <Navbar logout={this.logout}/>
         <Switch>
           <Route exact path='/' component={ProductList}/>
           <Route exact path='/login' component={Login}/>
           <Route exact path='/signup' component={Signup}/>
-          <Route exact path='/create' component={Create}/>
+          <Route exact path='/create' component={() => <Create isAdmin={this.state.userState.isAdmin}/>}/>
           <Route exact path='/cart' component={Cart}/>
+          <Route exact path='/details' component={() => <Details details={this.state.details} isAdmin={this.state.userState.isAdmin}/>} />
           <Route exact component={Default}/>
         </Switch>
       </UserProvider>

@@ -47,7 +47,7 @@ class Login extends Component {
                 const user = {
                     isLoggedIn: true,
                     isAdmin: response.user.roles.includes('admin'),
-                    usernamme: response.user.username
+                    username: response.user.username,
                 };
 
                 window.localStorage.setItem('auth_token',response.token);
@@ -67,7 +67,7 @@ class Login extends Component {
         return (
             <div className='form-wrapper'>
                 {userData.userState.isLoggedIn
-                        ? <Redirect to="/home"/>
+                        ? <Redirect to="/"/>
                         : null
                 }
                 <h1>Log in</h1>

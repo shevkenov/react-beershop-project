@@ -18,4 +18,6 @@ function request(method){
     };
 }
 
-export const post = request('POST');
+const post = request('POST');
+
+export {post};
