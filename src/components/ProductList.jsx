@@ -6,17 +6,8 @@ import {UserConsumer} from './context/UserContext';
 import ProductService from './services/product-service.js';
 
 class ProductList extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      products: []
-    };
-  }
 
   static service = new ProductService();
-
-  
 
   async componentDidMount(){
 
@@ -27,8 +18,9 @@ class ProductList extends Component {
   render() {
     
     const {username} = this.props.userData.userState;
-    const {products} = this.props.userData;
+    const {products,cart} = this.props.userData;
     const {getProductDetails} = this.props.userData;
+    const {addItemToCart} = this.props.userData;
 
     return (
       <div className='pt-5 px-5'>
@@ -36,7 +28,7 @@ class ProductList extends Component {
           <Title title = "welcome" name = {username} />
           <div className='row'> 
             {
-              products.map(item => <Product key={item._id} item={{...item}} getProductDetails={getProductDetails}/>)
+              products.map(item => <Product key={item._id} item={{...item}} getProductDetails={getProductDetails} addItemToCart={addItemToCart} cart={cart}/>)
             }
           </div>
         </div>

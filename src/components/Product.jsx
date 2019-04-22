@@ -39,7 +39,13 @@ export default function Product(props) {
   };
 
   const { _id, image, title, price } = props.item;
-  const { getProductDetails } = props;
+  const { getProductDetails, addItemToCart, cart } = props;
+ 
+  let inCart = cart.find(itemInCart => {
+    return itemInCart._id === _id;
+  });
+
+  inCart = inCart ? true : false;
 
   return (
     <div className="col-9 mx-auto col-md-6 col-lg-3 my-3">
@@ -59,8 +65,12 @@ export default function Product(props) {
             </h5>
             <button
               style={newStyle.cartButton}
+              onClick={(event) => addItemToCart(event,_id)}
+              disabled = {inCart}
             >
-              <i className="fas fa-cart-plus" />
+              {
+                inCart ? (<p className='text-capitalize' disabled>in cart</p>) : (<i className='fas fa-cart-plus'/>)
+              }
             </button>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function Details(props) {
   const img = {
@@ -8,20 +8,26 @@ export default function Details(props) {
   };
 
   const btn = {
-    fontSize: '1.2rem',
+    fontSize: "1.2rem",
     background: "transparent",
     border: "0.05rem solid var(--mainAmber)",
     borderColor: "var(--mainAmber)",
     color: "var(--mainAmber)",
     borderRadius: "0.5rem",
     padding: "0.2rem 0.5rem",
-    cursor: "pointer",
     margin: "0.2rem 0.5rem 0.2rem 0",
     transition: "all 0.5s ease-in-out"
   };
 
-  const {title, image, brand, price, description, style } = props.details;
-  const {isAdmin} = props;
+  const { _id, title, image, brand, price, description, style } = props.details;
+  const { isAdmin, cart, addItemToCart } = props;
+
+  let inCart = cart.find(itemInCart => {
+    return itemInCart._id === _id;
+  });
+
+  inCart = inCart ? true : false;
+
   return (
     <div className="container py-5">
       <div className="row">
@@ -54,15 +60,14 @@ export default function Details(props) {
             <Link to="/">
               <button style={btn}>back to products</button>
             </Link>
-           <button style={btn}>add to cart</button>
-           {
-               isAdmin ?
-                <Link to="/edit">
-                    <button style={btn}>Edit</button>
-                </Link>
-                :
-                    null
-           }
+            <button style={btn} disabled={inCart} onClick={(event) => {addItemToCart(event,_id);}}>
+              {inCart ? 'inCart':'add to cart'}
+            </button>
+            {isAdmin ? (
+              <Link to="/edit">
+                <button style={btn}>Edit</button>
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>

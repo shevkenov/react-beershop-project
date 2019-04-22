@@ -75,11 +75,18 @@ class Navbar extends Component {
         </ul>
         <ul className='navbar-nav ml-auto'>
             <li className='nav-item pr-5'>
-                <NavLink to='/cart' className='nav-link'>
+            {
+              isLoggedIn
+                ?
+                  <NavLink to='/cart' className='nav-link'>
                     <span className='mr-2'>
                         <i className="fas fa-cart-plus"></i>
                     </span>
-                </NavLink>
+                  </NavLink>
+                :
+                  null
+}
+                
             </li>
 
         {li}
