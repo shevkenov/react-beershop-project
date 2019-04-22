@@ -1,4 +1,4 @@
-import {get,post} from '../data/request-beer-data.js';
+import {get,post,remove} from '../data/request-beer-data.js';
 
 class ProductService {
     constructor(){
@@ -6,6 +6,7 @@ class ProductService {
         this.productsUrl = this.baseUrl + 'all';
         this.createUrl = this.baseUrl + 'create';
         this.editUrl = this.baseUrl + 'edit';
+        this.removeUrl = this.baseUrl + 'delete';
     }
     
     getAllProducts(){
@@ -19,6 +20,11 @@ class ProductService {
     editItem(item){
         return post(this.editUrl, item);
     }
+
+    removeItem(item){
+        return remove(this.removeUrl, item);
+    }
+
 }
 
 export default ProductService;

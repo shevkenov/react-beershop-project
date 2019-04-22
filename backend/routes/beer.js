@@ -324,11 +324,13 @@ router.post('/unlike/:id', authCheck, (req, res) => {
     });
 });
 
-router.delete('/delete/:id', authCheck, (req, res) => {
-  const id = req.params.id;
-  if (req.user.roles.indexOf('Admin') > -1) {
+router.delete('/delete', authCheck, (req, res) => {
+  
+  if (req.user.roles.indexOf('admin') > -1) {
+    const BeerId = req.body._id;
+    
     Beer
-      .findById(id)
+      .findById(BeerId)
       .then((Beer) => {
         Beer
           .remove()

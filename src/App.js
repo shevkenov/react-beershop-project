@@ -168,6 +168,14 @@ class App extends Component {
     
   }
 
+  removeFromProducts = (id) => {
+
+  }
+
+  checkout = () => {
+
+  }
+
   render() {
 
     return (
@@ -178,6 +186,7 @@ class App extends Component {
             updateUserState: this.updateUserState,
             setProducts: this.setProducts,
             getProductDetails: this.getProductDetails,
+            removeItemFromProducts: this.removeFromProducts,
             addItemToCart: this.addItemToCart,
             increment: this.increment,
             decrement: this.decrement,
@@ -192,7 +201,14 @@ class App extends Component {
           <Route exact path='/signup' component={Signup}/>
           <Route exact path='/create' component={() => <Create isAdmin={this.state.userState.isAdmin}/>}/>
           <Route exact path='/cart' component={Cart}/>
-          <Route exact path='/details' component={() => <Details details={this.state.details} isAdmin={this.state.userState.isAdmin} cart={this.state.cart} addItemToCart={this.addItemToCart}/>} />
+          <Route exact path='/details' component={() => 
+            <Details 
+              details={this.state.details} 
+              isAdmin={this.state.userState.isAdmin} 
+              cart={this.state.cart} 
+              addItemToCart={this.addItemToCart}
+              removeFromProducts={this.removeFromProducts}
+            />} />
           <Route exact path='/edit' component={() => <Edit userData = {this.state}/>}/>
           <Route exact component={Default}/>
         </Switch>

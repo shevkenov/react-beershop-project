@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {toast} from 'react-toastify';
+
+import ProductService from "./services/product-service.js";
 
 export default function Details(props) {
   const img = {
@@ -25,6 +28,27 @@ export default function Details(props) {
   let inCart = cart.find(itemInCart => {
     return itemInCart._id === _id;
   });
+
+  const service = new ProductService();
+
+  const removeFromProducts = async(event) => {
+    event.preventDefault();
+    
+    try {
+      
+      const response = await service.removeItem(props.details);
+
+      if(!response.success){
+        throw new Error(response.errors.description);
+      }
+
+      toast.success(response.message);
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+    
+  };
 
   inCart = inCart ? true : false;
 
@@ -60,14 +84,21 @@ export default function Details(props) {
             <Link to="/">
               <button style={btn}>back to products</button>
             </Link>
-            <button style={btn} disabled={inCart} onClick={(event) => {addItemToCart(event,_id);}}>
-              {inCart ? 'inCart':'add to cart'}
+            <button
+              style={btn}
+              disabled={inCart}
+              onClick={event => {
+                addItemToCart(event, _id);
+              }}
+            >
+              {inCart ? "inCart" : "add to cart"}
             </button>
             {isAdmin ? (
               <Link to="/edit">
                 <button style={btn}>Edit</button>
               </Link>
             ) : null}
+            {isAdmin ? <button style={btn} onClick={(event) => {removeFromProducts(event);}}>Remove</button> : null}
           </div>
         </div>
       </div>
