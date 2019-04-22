@@ -39,14 +39,6 @@ export default class Create extends Component {
       }
 
       toast.success(response.message);
-      this.setState({       
-          brand: '',
-          title: '',
-          style: '',
-          description: '',
-          price: '',
-          image: ''
-      });
 
     } catch (error) {
       toast.error(error.message);
@@ -111,6 +103,7 @@ export default class Create extends Component {
           <div className="form-group">
             <textarea
               type="text"
+              rows="5"
               className="form-control form-control-lg"
               name="description"
               onChange={event => this.handleChange(event)}

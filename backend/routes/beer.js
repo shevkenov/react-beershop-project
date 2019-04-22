@@ -82,9 +82,10 @@ router.post('/create', authCheck, (req, res) => {
   }
 });
 
-router.post('/edit/:id', authCheck, (req, res) => {
+router.post('/edit', authCheck, (req, res) => {
+
   if (req.user.roles.indexOf('admin') > -1) {
-    const BeerId = req.params.id;
+    const BeerId = req.body.id;
     const BeerObj = req.body;
     const validationResult = validateBeerCreateForm(BeerObj);
     if (!validationResult.success) {
@@ -99,8 +100,8 @@ router.post('/edit/:id', authCheck, (req, res) => {
       .findById(BeerId)
       .then(existingBeer => {
         existingBeer.title = BeerObj.title;
-        existingBeer.author = BeerObj.author;
-        existingBeer.genres = BeerObj.genres;
+        existingBeer.brand = BeerObj.brand;
+        existingBeer.style = BeerObj.style;
         existingBeer.description = BeerObj.description;
         existingBeer.price = BeerObj.price;
         existingBeer.image = BeerObj.image;

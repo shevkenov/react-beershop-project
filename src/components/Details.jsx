@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 export default function Details(props) {
   const img = {
-    width: 130,
+    width: 200,
     height: 200
   };
 
@@ -20,7 +20,7 @@ export default function Details(props) {
     transition: "all 0.5s ease-in-out"
   };
 
-  const { title, image, brand, price, description, style } = props.details;
+  const {title, image, brand, price, description, style } = props.details;
   const {isAdmin} = props;
   return (
     <div className="container py-5">

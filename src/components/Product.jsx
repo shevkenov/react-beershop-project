@@ -20,7 +20,7 @@ export default function Product(props) {
     },
     cardImgTop: {
       transition: "all 1s linear",
-      width: 130,
+      width: 200,
       height: 200
     },
     cartButton: {
@@ -50,19 +50,19 @@ export default function Product(props) {
           </Link>
           
           <div className='card-footer d-flex justify-content-between' style={newStyle.cardFooter}>
-          <p className='align-self-center mb-0'>
-            {title}
-          </p>
-          <h5 className='text-blue font-italic mb-0'>
-            <span className='mr-1'>лв.</span>
-            {price}
-          </h5>
-          <button
-            style={newStyle.cartButton}
-          >
-            <i className="fas fa-cart-plus" />
-          </button>
-        </div>
+            <p className='align-self-center mb-0'>
+              {title}
+            </p>
+            <h5 className='text-blue font-italic mb-0'>
+              <span className='mr-1'>лв.</span>
+              {price}
+            </h5>
+            <button
+              style={newStyle.cartButton}
+            >
+              <i className="fas fa-cart-plus" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ class ProductService {
         this.baseUrl = 'http://localhost:5555/beer/';
         this.productsUrl = this.baseUrl + 'all';
         this.createUrl = this.baseUrl + 'create';
+        this.editUrl = this.baseUrl + 'edit';
     }
     
     getAllProducts(){
@@ -13,6 +14,10 @@ class ProductService {
 
     createNewProduct(item){
         return post(this.createUrl, item);
+    }
+
+    editItem(item){
+        return post(this.editUrl, item);
     }
 }
 

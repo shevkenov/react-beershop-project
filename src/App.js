@@ -15,6 +15,7 @@ import Signup from './components/Signup';
 
 import { UserProvider } from './components/context/UserContext.js';
 import Details from './components/Details';
+import Edit from './components/Edit';
 
 toast.configure({
   autoClose: 2000,
@@ -103,6 +104,7 @@ class App extends Component {
           <Route exact path='/create' component={() => <Create isAdmin={this.state.userState.isAdmin}/>}/>
           <Route exact path='/cart' component={Cart}/>
           <Route exact path='/details' component={() => <Details details={this.state.details} isAdmin={this.state.userState.isAdmin}/>} />
+          <Route exact path='/edit' component={() => <Edit userData = {this.state}/>}/>
           <Route exact component={Default}/>
         </Switch>
       </UserProvider>
