@@ -4,15 +4,25 @@ class OrderService {
     constructor(){
         this.baseUrl = 'http://localhost:5555/orders/';
         this.submitUrl = this.baseUrl + 'submit';
-        this.getOrdersUrl = this.baseUrl + 'user';
+        this.pendingUrl = this.baseUrl + 'pending';
+        this.userUrl = this.baseUrl + 'user';
+        this.statusUrl = this.baseUrl + 'approve';
     }
     
     submit(cart){
         return post(this.submitUrl,cart);
     };
 
-    getOrders(){
-        return get(this.getOrdersUrl);
+    getPendingOrders(){
+        return get(this.pendingUrl);
+    }
+
+    getUserOrders(){
+        return get(this.userUrl);
+    }
+
+    changeSatus(order){
+        return post(this.statusUrl, order);
     }
 
 }

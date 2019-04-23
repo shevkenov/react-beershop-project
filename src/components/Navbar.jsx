@@ -2,46 +2,69 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../logo.png";
 
-import {UserConsumer} from './context/UserContext.js';
+import { UserConsumer } from "./context/UserContext.js";
 
 class Navbar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
       loginButton: true
     };
-
   }
 
   toggleButton = () => {
     this.setState({
       loginButton: !this.state.loginButton
     });
-  }
+  };
 
   render() {
-    const {isLoggedIn, isAdmin} = this.props.userData.userState;
+    const { isLoggedIn, isAdmin } = this.props.userData.userState;
     let li;
 
-    if(isLoggedIn){
-      li = <li className='nav-item'>
-        <NavLink to='/' className='nav-link' onClick={(event) => this.props.logout(event)}>Log out</NavLink>
-      </li>;
-    }else{
-      if(this.state.loginButton){
-        li =  <li className='nav-item'>
-                <NavLink to='/login' className='nav-link' onClick={this.toggleButton}>Log in</NavLink>
-              </li>;
-      }else{
-        li =  <li className='nav-item'>
-                <NavLink to='/signup' className='nav-link' onClick={this.toggleButton}>Sign up</NavLink>         
-              </li>;
+    if (isLoggedIn) {
+      li = (
+        <li className="nav-item">
+          <NavLink
+            to="/"
+            className="nav-link"
+            onClick={event => this.props.logout(event)}
+          >
+            Log out
+          </NavLink>
+        </li>
+      );
+    } else {
+      if (this.state.loginButton) {
+        li = (
+          <li className="nav-item">
+            <NavLink
+              to="/login"
+              className="nav-link"
+              onClick={this.toggleButton}
+            >
+              Log in
+            </NavLink>
+          </li>
+        );
+      } else {
+        li = (
+          <li className="nav-item">
+            <NavLink
+              to="/signup"
+              className="nav-link"
+              onClick={this.toggleButton}
+            >
+              Sign up
+            </NavLink>
+          </li>
+        );
       }
     }
 
     return (
-      <nav className='navbar navbar-expand-sm' >
+      <nav className="navbar navbar-expand-sm">
         <NavLink to="/" className="navbar-link">
           <img
             src={logo}
@@ -51,59 +74,59 @@ class Navbar extends Component {
             className="navbar-brand"
           />
         </NavLink>
-        <ul className='navbar-nav align-items-center pl-5'>
-            <li className='nav-item'>
-                <NavLink to='/' className='nav-link'>Home</NavLink>
-            </li>
-            
-            {
-              isAdmin
-                ?
-                  <li className='nav-item'>
-                    <NavLink to='/create' className='nav-link'>Create</NavLink>
-                  </li>
-                :
-                  null
-            }
+        <ul className="navbar-nav align-items-center pl-5">
+          <li className="nav-item">
+            <NavLink to="/" className="nav-link">
+              Home
+            </NavLink>
+          </li>
 
-            <li>
-                <form className="form-inline ml-5">
-                    <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-                </form>
+          {isAdmin ? (
+            <li className="nav-item">
+              <NavLink to="/create" className="nav-link">
+                Create
+              </NavLink>
             </li>
-            
+          ) : null}
+
+          <li>
+            <form className="form-inline ml-5">
+              <input
+                className="form-control mr-sm-2"
+                type="text"
+                placeholder="Search"
+              />
+            </form>
+          </li>
         </ul>
-        <ul className='navbar-nav ml-auto'>
-            <li className='nav-item pr-5'>
-            {
-              isLoggedIn
-                ?
-                  <NavLink to='/cart' className='nav-link'>
-                    <span className='mr-2'>
-                        <i className="fas fa-cart-plus"></i>
-                    </span>
-                  </NavLink>
-                :
-                  null
-}
-                
-            </li>
-
-        {li}
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item pr-5">
+            {isAdmin ?
+              (<NavLink to="/pending" className="nav-link">
+                <span className="mr-2">
+                <i className="fas fa-cash-register" />
+                </span>
+              </NavLink>) :
+              (<NavLink to="/cart" className="nav-link">
+              <span className="mr-2">
+                <i className="fas fa-cart-plus" />
+              </span>
+            </NavLink>)
+            }
+          </li>
+          {li}
         </ul>
       </nav>
     );
   }
 }
 
-const NavbarWithContext = (props) => {
+const NavbarWithContext = props => {
   return (
     <UserConsumer>
-      {
-        (value) => {
-          return <Navbar userData = {{...value}} {...props}/>;
-        }
-      }
+      {value => {
+        return <Navbar userData={{ ...value }} {...props} />;
+      }}
     </UserConsumer>
   );
 };

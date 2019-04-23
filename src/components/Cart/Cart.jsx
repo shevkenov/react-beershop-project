@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 import Title from '../Title';
 import CartColumns from './CartColumns';
@@ -14,7 +15,10 @@ export default class Cart extends Component {
         <UserConsumer>
           {
             (value) => {
-              const {cart} = value;
+              const {cart,userState} = value;
+              if(!userState.isLoggedIn){
+                return (<Redirect to="/login" />);
+              }
 
               if(cart.length > 0){
                 return(

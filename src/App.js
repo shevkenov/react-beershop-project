@@ -6,6 +6,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import '../node_modules/react-toastify/dist/ReactToastify.min.css';
 
 import Navbar from './components/Navbar';
+import PendingOrders from './components/Orders/Pending';
 import ProductList from './components/ProductList';
 import Create from './components/Create';
 import Cart from './components/Cart/Cart';
@@ -200,6 +201,7 @@ class App extends Component {
           <Route exact path='/login' component={Login}/>
           <Route exact path='/signup' component={Signup}/>
           <Route exact path='/create' component={() => <Create isAdmin={this.state.userState.isAdmin}/>}/>
+          <Route exact path='/pending' component={() => <PendingOrders isAdmin={this.state.userState.isAdmin}/>}/>
           <Route exact path='/cart' component={Cart}/>
           <Route exact path='/details' component={() => 
             <Details 

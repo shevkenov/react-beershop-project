@@ -39,7 +39,7 @@ router.get('/user', authCheck, (req, res) => {
 });
 
 router.get('/pending', authCheck, (req, res) => {
-  if (req.user.roles.indexOf('Admin') > -1) {
+  if (req.user.roles.indexOf('admin') > -1) {
     Order
       .find({status: 'Pending'})
       .then(orders => {
@@ -53,8 +53,8 @@ router.get('/pending', authCheck, (req, res) => {
   }
 });
 
-router.post('/approve/:id', authCheck, (req, res) => {
-  const orderId = req.params.id;
+router.post('/approve', authCheck, (req, res) => {
+  const orderId = req.body._id;
   Order
     .findById(orderId)
     .then(order => {
